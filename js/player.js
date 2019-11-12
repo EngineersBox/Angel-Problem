@@ -1,28 +1,17 @@
-class Angel {
+class Player {
 
     /**
-     * Create a new Angel
+     * Create a new Player
      * 
-     * @param {Number} power 
      * @param {Number} x 
      * @param {Number} y 
      */
-    constructor(power, x, y) {
-        this.power = power;
+    constructor(x, y) {
         this.pos = createVector(x, y);
     }
 
     /**
-     * Set the Angel's power value (radius)
-     * 
-     * @param {Number} power 
-     */
-    setPower(power) {
-        this.power = power;
-    }
-
-    /**
-     * Set the Angel's x and y values
+     * Set the Players x and y values
      * 
      * @param {Number} x 
      * @param {Number} y 
@@ -33,7 +22,7 @@ class Angel {
     }
 
     /**
-     * Set the Angel's position vector
+     * Set the Players position vector
      * 
      * @param {p5.Vector} pos 
      */
@@ -43,31 +32,34 @@ class Angel {
 
 }
 
-class Demon {
-
-    constructor() {
-        this.pos = createVector(~~(Math.random() * COLS), ~~(Math.random() * ROWS));
-        this.captured = [];
-    }
+class Angel extends Player {
 
     /**
-     * Set the Demon's x and y values
+     * Create a new Angel
      * 
+     * @param {Number} power 
      * @param {Number} x 
      * @param {Number} y 
      */
-    setPos(x, y) {
-        this.pos.x = x;
-        this.pos.y = y;
+    constructor(power, x, y) {
+        super(x, y);
+        this.power = power;
+        this.highlight = color(86, 152, 181);
     }
 
+    setPower(power) {
+        this.power = power;
+    }
+
+}
+
+class Demon extends Player {
+
     /**
-     * Set the Demon's position vector
-     *
-     * @param {p5.Vector} pos
+     * Create a new Demon
      */
-    setPos(pos) {
-        this.pos = pos;
+    constructor() {
+        super(~~(Math.random() * COLS), ~~(Math.random() * ROWS));
     }
 
 }
