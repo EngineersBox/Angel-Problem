@@ -8,7 +8,7 @@
  * @returns {Array}
  */
 function create2DArray(cols, rows) {
-    return [...Array(cols)].map(x => Array(rows).fill(new Square()));
+    return retArr = [...Array(cols)].map(x => Array(rows).fill({}).map(y => new Square()));
 }
 
 class Grid {
@@ -22,7 +22,7 @@ class Grid {
     constructor(cols, rows) {
         this.cols = cols;
         this.rows = rows;
-        this.grid = create2DArray(cols, rows);
+        this.grid = create2DArray(this.cols, this.rows);
     }
 
     /**
@@ -33,7 +33,7 @@ class Grid {
      * @param {States} state 
      */
     setState(x, y, state) {
-        this.grid[x][y] = state;
+        this.grid[x][y].setState(state);
     }
 
     /**

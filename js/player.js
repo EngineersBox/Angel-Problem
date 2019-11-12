@@ -7,7 +7,7 @@ class Angel {
      * @param {Number} x 
      * @param {Number} y 
      */
-    constructor(power, x=0, y=0) {
+    constructor(power, x, y) {
         this.power = power;
         this.pos = createVector(x, y);
     }

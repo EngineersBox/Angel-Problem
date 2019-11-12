@@ -5,10 +5,10 @@
  * - ANGEL
  */
 const States = Object.freeze({
-    EMPTY: color(127.5),
-    CAPTURED: color(200),
-    ANGEL: color(0, 0, 255),
-    DEMON: color(255, 0, 0)
+    EMPTY: [127.5],
+    CAPTURED: [200],
+    ANGEL: [0, 0, 255],
+    DEMON: [255, 0, 0]
 });
 
 class Square {
