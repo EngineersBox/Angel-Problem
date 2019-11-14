@@ -33,7 +33,7 @@ class Grid {
      * @param {States} state 
      */
     setState(x, y, state) {
-        this.grid[x][y].setState(state);
+        this.grid[y][x].setState(state);
     }
 
     /**
@@ -43,7 +43,7 @@ class Grid {
      * @param {Number} y 
      */
     getState(x, y) {
-        return this.grid[x][y].state;
+        return this.grid[y][x].state;
     }
 
 }

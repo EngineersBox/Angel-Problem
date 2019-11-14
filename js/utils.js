@@ -3,13 +3,13 @@ class Utils {
     /**
      * Check if a number is in a range
      * 
-     * @param {Number} x 
+     * @param {Number} val 
      * @param {Number} min 
      * @param {Number} max 
      * @returns {Boolean}
      */
-    static inRange(x, min, max) {
-        return x >= min && x <= max;
+    static inRange(val, min, max) {
+        return val >= min && val <= max;
     }
 
     /**
@@ -20,7 +20,7 @@ class Utils {
      * @returns {Boolean}
      */
     static isValidMove(x, y) {
-        return this.inRange(x, 0, COLS) && this.inRange(y, 0, ROWS);
+        return this.inRange(y, 0, COLS) && this.inRange(x, 0, ROWS);
     }
 
     /**
@@ -34,14 +34,14 @@ class Utils {
     }
 
     /**
-     * Sum arrays element wise
+     * Return closest multiple of divisor to given value
      * 
-     * @param {Array} arr1 
-     * @param {Array} arr2
-     * @returns {Array} 
+     * @param {Number} value 
+     * @param {Number} divisor 
+     * @returns {Number}
      */
-    static addArrays(a, b) {
-        return ab.map((e, i) => e + b[i]);
+    static snap(value, divisor) {
+        return ~~(value / divisor);
     }
 
 }

@@ -22,10 +22,6 @@ class Square {
         this.state = state;
     }
 
-    isCaptured() {
-        return this.state == States.CAPTURED || this.state == States.DEMON;
-    }
-
     /**
      * Set the state of the square
      * 

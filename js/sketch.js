@@ -7,6 +7,11 @@ let grid;
 let power;
 let showHighlight = true;
 
+const pEnum = {
+    angel: 0,
+    demon: 1
+}
+let current_player = pEnum.angel;
 let p_angel;
 let p_demon;
 
@@ -31,51 +36,55 @@ function setup() {
     grid.setState(p_demon.pos.x, p_demon.pos.y, States.DEMON);
 }
 
-function angelMove(x, y) {
-    if (Utils.isValidMove(x, y)) {
-        let ap = p_angel.power;
-        let ax = p_angel.pos.x;
-        let ay = p_angel.pos.y;
-        let g_state = grid.getState(x, y);
-        if (Utils.inRange(x, ax - ap, ax + ap) && Utils.inRange(y, ay - ap, ay + ap) && (g_state == States.EMPTY)) {
-            grid.setState(ax, ay, States.EMPTY);
-            grid.setState(x, y, States.ANGEL);
-            p_angel.setPos(x, y);
-            return true;
-        }
+function playMove(x, y) {
+    if (!Utils.isValidMove(x, y)) {
+        return;
     }
-    return false;
-}
-
-function demonMove(x, y) {
-    if (Utils.isValidMove(x, y)) {
-        let g_state = grid.getState(x, y);
-        if (g_state == States.EMPTY) {
+    let g_state = grid.getState(x, y);
+    if (g_state != States.EMPTY) {
+        return;
+    }
+    switch (current_player) {
+        case (pEnum.angel):
+            let ap = p_angel.power;
+            let ax = p_angel.pos.x;
+            let ay = p_angel.pos.y;
+            if (Utils.inRange(x, ax - ap, ax + ap) && Utils.inRange(y, ay - ap, ay + ap)) {
+                grid.setState(ax, ay, States.EMPTY);
+                grid.setState(x, y, States.ANGEL);
+                p_angel.setPos(x, y);
+                current_player = pEnum.demon;
+            }
+            break;
+        case (pEnum.demon):
             grid.setState(p_demon.pos.x, p_demon.pos.y, States.CAPTURED);
             grid.setState(x, y, States.DEMON);
             p_demon.setPos(x, y);
-            return true;
-        }
+            current_player = pEnum.angel;
+            break;
     }
-    return false;
+}
+
+function mousePressed() {
+    playMove(Utils.snap(mouseX, SQUARE_SIZE), Utils.snap(mouseY, SQUARE_SIZE));
 }
 
 function draw() {
     initConst();
 
-    for (let i = 0; i < grid.rows; i++) {
-        for (let j = 0; j < grid.cols; j++) {
+    for (let x = 0; x < grid.rows; x++) {
+        for (let y = 0; y < grid.cols; y++) {
             stroke(200);
             let ap = p_angel.power;
             let ax = p_angel.pos.x;
             let ay = p_angel.pos.y;
-            let g_state = grid.getState(j, i);
+            let g_state = grid.getState(x, y);
             let newColor = color(g_state);
-            if (showHighlight && Utils.inRange(j, ax - ap, ax + ap) && Utils.inRange(i, ay - ap, ay + ap)) {
+            if (showHighlight && Utils.inRange(x, ax - ap, ax + ap) && Utils.inRange(y, ay - ap, ay + ap)) {
                 newColor = g_state == States.DEMON || g_state == States.ANGEL ? newColor : p_angel.highlight;
             }
             fill(newColor);
-            rect(i * SQUARE_SIZE, j * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+            rect(x * SQUARE_SIZE, y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
         }
     }
 
