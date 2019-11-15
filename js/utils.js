@@ -1,36 +1,26 @@
-class Utils {
+class MathUtils {
 
     /**
-     * Check if a number is in a range
-     * 
-     * @param {Number} val 
-     * @param {Number} min 
-     * @param {Number} max 
-     * @returns {Boolean}
-     */
+         * Check if a number is in a range
+         * 
+         * @param {Number} val 
+         * @param {Number} min 
+         * @param {Number} max 
+         * @returns {Boolean}
+         */
     static inRange(val, min, max) {
         return val >= min && val <= max;
     }
 
     /**
-     * Check a position is on the board
+     * Generate a random number (float) in a specified range
      * 
-     * @param {Number} x 
-     * @param {Number} y 
-     * @returns {Boolean}
+     * @param {Number} min 
+     * @param {Number} max 
+     * @returns {Number}
      */
-    static isValidMove(x, y) {
-        return this.inRange(y, 0, COLS) && this.inRange(x, 0, ROWS);
-    }
-
-    /**
-     * Get DOM element with specified id
-     * 
-     * @param {String} id 
-     * @returns {*}
-     */
-    static getElem(id) {
-        return document.getElementById(id);
+    static randRange(min, max) {
+        return (Math.random() * (max - min)) + min;
     }
 
     /**
@@ -42,6 +32,46 @@ class Utils {
      */
     static snap(value, divisor) {
         return ~~(value / divisor);
+    }
+
+}
+
+class ColorUtils {
+
+    /**
+         * Add two colors together element wise
+         * 
+         * @param {Color} color_a 
+         * @param {Color} color_b 
+         * @returns {Color}
+         */
+    static colorAdd(color_a, color_b) {
+        return color(color_a.levels.map((e, i) => Math.min(255, e + color_b.levels[i])));
+    }
+
+}
+
+class Utils {
+
+    /**
+     * Check a position is on the board
+     * 
+     * @param {Number} x 
+     * @param {Number} y 
+     * @returns {Boolean}
+     */
+    static isValidMove(x, y) {
+        return MathUtils.inRange(y, 0, COLS) && MathUtils.inRange(x, 0, ROWS);
+    }
+
+    /**
+     * Get DOM element with specified id
+     * 
+     * @param {String} id 
+     * @returns {*}
+     */
+    static getElem(id) {
+        return document.getElementById(id);
     }
 
 }

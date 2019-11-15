@@ -36,6 +36,13 @@ function setup() {
     grid.setState(p_demon.pos.x, p_demon.pos.y, States.DEMON);
 }
 
+function changePlayerType() {
+    let angel_type = String(Utils.getElem("angel_types").value);
+    let demon_type = String(Utils.getElem("demon_types").value);
+    p_angel.setPlayerType(toPlayerType(angel_type));
+    p_demon.setPlayerType(toPlayerType(demon_type));
+}
+
 function playMove(x, y) {
     if (!Utils.isValidMove(x, y)) {
         return;
@@ -49,7 +56,7 @@ function playMove(x, y) {
             let ap = p_angel.power;
             let ax = p_angel.pos.x;
             let ay = p_angel.pos.y;
-            if (Utils.inRange(x, ax - ap, ax + ap) && Utils.inRange(y, ay - ap, ay + ap)) {
+            if (MathUtils.inRange(x, ax - ap, ax + ap) && MathUtils.inRange(y, ay - ap, ay + ap)) {
                 grid.setState(ax, ay, States.EMPTY);
                 grid.setState(x, y, States.ANGEL);
                 p_angel.setPos(x, y);
@@ -65,12 +72,33 @@ function playMove(x, y) {
     }
 }
 
+function aiMove(player) {
+    switch (player) {
+        case (pEnum.angel):
+            if (p_angel.getPType() === PlayerType.Human) {
+                return;
+            }
+            let ap = p_angel.power;
+            let ax = p_angel.pos.x;
+            let ay = p_angel.pos.y;
+            playMove(~~MathUtils.randRange(ax - ap, ay + ap), ~~MathUtils.randRange(ay - ap, ay + ap));
+            break;
+        case (pEnum.demon):
+            if (p_demon.getPType() === PlayerType.Human) {
+                return;
+            }
+            playMove(~~MathUtils.randRange(0, COLS), ~~MathUtils.randRange(0, ROWS));
+            break;
+    }
+}
+
 function mousePressed() {
-    playMove(Utils.snap(mouseX, SQUARE_SIZE), Utils.snap(mouseY, SQUARE_SIZE));
+    playMove(MathUtils.snap(mouseX, SQUARE_SIZE), MathUtils.snap(mouseY, SQUARE_SIZE));
 }
 
 function draw() {
     initConst();
+    aiMove(current_player);
 
     for (let x = 0; x < grid.rows; x++) {
         for (let y = 0; y < grid.cols; y++) {
@@ -80,8 +108,8 @@ function draw() {
             let ay = p_angel.pos.y;
             let g_state = grid.getState(x, y);
             let newColor = color(g_state);
-            if (showHighlight && Utils.inRange(x, ax - ap, ax + ap) && Utils.inRange(y, ay - ap, ay + ap)) {
-                newColor = g_state == States.DEMON || g_state == States.ANGEL ? newColor : p_angel.highlight;
+            if (showHighlight && MathUtils.inRange(x, ax - ap, ax + ap) && MathUtils.inRange(y, ay - ap, ay + ap)) {
+                newColor = g_state == States.DEMON || g_state == States.ANGEL ? newColor : ColorUtils.colorAdd(newColor, p_angel.highlight);
             }
             fill(newColor);
             rect(x * SQUARE_SIZE, y * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);

@@ -59,6 +59,34 @@
                         <input id="highlight" type="checkbox" checked>
                     </td>
                 </tr>
+                <tr>
+                    <td>Player Types</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <span id="angel_span"><i>Angel</i></span>
+                                    <select id="angel_types" name="Angel Player Type">
+                                        <option id="type_human_angel" value="HUMAN">Human</option>
+                                        <option id="type_ai_angel" value="AI">AI</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span id="demon_span"><i>Demon</i></span>
+                                    <select id="demon_types" name="Demon Player Type">
+                                        <option id="type_human_demon" value="HUMAN">Human</option>
+                                        <option id="type_ai_demon" value="AI">AI</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <button id="set_player_types" type="button" onclick="changePlayerType()">Set Player Types</button>
+                    </td>
+                </tr>
             </table>
         </div>
     </body>

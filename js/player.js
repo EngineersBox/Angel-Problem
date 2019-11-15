@@ -1,3 +1,19 @@
+const PlayerType = {
+    Human: "HUMAN",
+    AI: "AI"
+}
+
+function toPlayerType(type_string) {
+    switch (type_string) {
+        case "HUMAN":
+            return PlayerType.Human;
+        case "AI":
+            return PlayerType.AI;
+        default:
+            return PlayerType.Human;
+    }
+}
+
 class Player {
 
     /**
@@ -5,9 +21,11 @@ class Player {
      * 
      * @param {Number} x 
      * @param {Number} y 
+     * @param {PlayerType}
      */
-    constructor(x, y) {
+    constructor(x, y, player_type) {
         this.pos = createVector(x, y);
+        this.player_type = player_type;
     }
 
     /**
@@ -22,12 +40,16 @@ class Player {
     }
 
     /**
-     * Set the Players position vector
+     * Set the Players type
      * 
-     * @param {p5.Vector} pos 
+     * @param {PlayerType} pos 
      */
-    setPos(pos) {
-        this.pos = pos;
+    setPlayerType(player_type) {
+        this.player_type = player_type;
+    }
+
+    getPType() {
+        return this.player_type;
     }
 
 }
@@ -42,9 +64,9 @@ class Angel extends Player {
      * @param {Number} y 
      */
     constructor(power, x, y) {
-        super(x, y);
+        super(x, y, PlayerType.Human);
         this.power = power;
-        this.highlight = color(86, 152, 181);
+        this.highlight = color(20, 42, 100);
     }
 
     setPower(power) {
@@ -59,7 +81,7 @@ class Demon extends Player {
      * Create a new Demon
      */
     constructor() {
-        super(~~(Math.random() * COLS), ~~(Math.random() * ROWS));
+        super(~~(Math.random() * COLS), ~~(Math.random() * ROWS), PlayerType.Human);
     }
 
 }
