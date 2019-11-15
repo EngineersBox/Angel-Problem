@@ -17,8 +17,11 @@ There are several settings for this game:
 - **Grid Size:**
   - X: *Integer value*
   - Y: *Integer value*
-- **Players (Angel vs Demon):**
-  - Computer vs Computer
-  - Computer vs Player
-  - Player vs Computer
-  - Player vs Player
+  - Square Width: *Integer value*
+- **Player Config:**
+  - Highlight angel power
+  - Player types [Angel vs Demon]:
+    - Computer vs Computer
+    - Computer vs Player
+    - Player vs Computer
+    - Player vs Player
