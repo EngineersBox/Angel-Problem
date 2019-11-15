@@ -10,7 +10,7 @@ body {
 }
 
 #settings {
-    margin-top: 10px;
+    display: inline-flex;
 }
 
 #settings,th {
@@ -50,4 +50,18 @@ body {
 #demon_span {
     font-weight: lighter;
     color: white;
+}
+
+#turn_indicator {
+    color: white;
+}
+
+.angel_ti {
+    font-size: 20px;
+    color: rgb(29, 178, 228);
+}
+
+.demon_ti {
+    font-size: 20px;
+    color: rgb(228, 29, 29);
 }

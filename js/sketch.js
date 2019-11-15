@@ -61,6 +61,9 @@ function playMove(x, y) {
                 grid.setState(x, y, States.ANGEL);
                 p_angel.setPos(x, y);
                 current_player = pEnum.demon;
+                let ti_span = Utils.getElem("ti_span");
+                ti_span.innerHTML = "Demon";
+                ti_span.className = "demon_ti";
             }
             break;
         case (pEnum.demon):
@@ -68,6 +71,9 @@ function playMove(x, y) {
             grid.setState(x, y, States.DEMON);
             p_demon.setPos(x, y);
             current_player = pEnum.angel;
+            let ti_span = Utils.getElem("ti_span");
+            ti_span.innerHTML = "Angel";
+            ti_span.className = "angel_ti";
             break;
     }
 }
